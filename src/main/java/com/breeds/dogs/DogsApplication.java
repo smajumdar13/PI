@@ -1,9 +1,9 @@
 package com.breeds.dogs;
 
-import Model.Dogs;
+import com.breeds.dogs.Model.Dogs;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dogsService.DogsService;
+import com.breeds.dogs.dogsRepository.DogsRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Paths;
 import java.util.List;
 
 @SpringBootApplication
@@ -22,22 +21,19 @@ public class DogsApplication {
     }
 
     @Bean
-    CommandLineRunner runner(DogsService dogsService) {
+    CommandLineRunner runner(DogsRepository dogsRepository) {
         return args -> {
+            ObjectMapper mapper = new ObjectMapper();
+            TypeReference<List<Dogs>> mapType = new TypeReference<List<Dogs>>() {
+            };
+            InputStream is = TypeReference.class.getResourceAsStream("apidata.json");
             try {
-                // create object mapper instance
-                ObjectMapper mapper = new ObjectMapper();
-
-                // convert JSON file to map
-                List<Dogs> dogs = mapper.readValue(Paths.get("apidata.json").toFile(), Dogs.class);
-
-                // print map entries
-                for (Map.Entry<?, ?> entry : map.entrySet()) {
-                    System.out.println(entry.getKey() + "=" + entry.getValue());
-                }
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                List<Dogs> d = mapper.readValue(is, mapType);
+                dogsRepository.save(d);
+                System.out.println("States list saved successfully");
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
             }
+        };
     }
 }

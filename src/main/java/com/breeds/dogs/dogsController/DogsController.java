@@ -1,18 +1,16 @@
 package com.breeds.dogs.dogsController;
 
-import Model.Dogs;
-import dogsService.DogsService;
+import com.breeds.dogs.Model.Dogs;
+import com.breeds.dogs.dogsService.DogsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping("/")
 public class DogsController {
-    private DogsService dogsService;
 
-    public DogsController() {
-    }
+    private final DogsService dogsService;
 
     public DogsController(DogsService dogsService) {
         this.dogsService = dogsService;

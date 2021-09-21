@@ -1,4 +1,4 @@
-package Model;
+package com.breeds.dogs.Model;
 
 import lombok.*;
 
@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.List;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -21,6 +20,4 @@ public class Dogs {
     @ElementCollection
     @CollectionTable(name = "dog-breeds")
     private List<String> breed;
-
-
 }

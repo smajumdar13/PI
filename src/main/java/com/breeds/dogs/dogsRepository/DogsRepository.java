@@ -1,6 +1,6 @@
-package dogsRepository;
+package com.breeds.dogs.dogsRepository;
 
-import Model.Dogs;
+import com.breeds.dogs.Model.Dogs;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +12,5 @@ public interface DogsRepository extends JpaRepository<Dogs, String> {
 
     @Query("SELECT d FROM Dogs d")
     List<Dogs> getAllDogs();
-
-
 
 }
